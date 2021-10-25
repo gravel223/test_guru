@@ -5,6 +5,12 @@ class Test < ApplicationRecord
   has_many :questions
   belongs_to :author, class_name: 'User'
 
+  scope :complexity -> (complexity) { where(level: complexity) }
+  scope :easy -> { complexity(0..1) }
+  scope :middle -> { complexity(2..4)}
+  scope :hard -> { complexity(5..Float::INFINITY)}
+
+
   def self.titles_by_category(title)
     join(:category).where(categories: { title: title })
                    .order(title: :desc).pluck(:title)
