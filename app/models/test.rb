@@ -5,6 +5,8 @@ class Test < ApplicationRecord
   has_many :questions
   belongs_to :author, class_name: 'User'
 
+  validates :title, presence: true
+
   scope :complexity -> (complexity) { where(level: complexity) }
   scope :easy -> { complexity(0..1) }
   scope :middle -> { complexity(2..4)}
