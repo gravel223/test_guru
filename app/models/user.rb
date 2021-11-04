@@ -5,8 +5,8 @@ class User < ApplicationRecord
 
   validates :email, presence: true
 
-  def titles_by_level(l)
-   tests.where(level: l)
+  def titles_by_level(level)
+   tests.where(level: level)
   end
 end
 
