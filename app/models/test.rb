@@ -15,10 +15,10 @@ class Test < ApplicationRecord
   scope :easy, -> { complexity(0..1) }
   scope :middle, -> { complexity(2..4)}
   scope :hard, -> { complexity(5..Float::INFINITY) }
+
   scope :by_category, -> (title) { joins(:category).where(:categories{ title: title }) }
 
    def self.titles_by_category(title)
-    join(:category).where(categories: { title: title })
-                   .order(title: :desc).pluck(:title)
+     by_category(title).order(title: :desc).pluck(:title)
   end
 end
