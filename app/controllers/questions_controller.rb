@@ -3,11 +3,11 @@ class QuestionsController < ApplicationController
   before_action :find_question, only: %i[show destroy]
 
   def index
-
+    @questions = @test.questions
   end
 
   def create
-
+    render plain: @question.body
   end
 
   def show
@@ -15,7 +15,9 @@ class QuestionsController < ApplicationController
   end
 
   def destroy
+    question = @question.destroy
 
+    render plain: "Question '#{question[:body]}' deleted"
   end
 
 
