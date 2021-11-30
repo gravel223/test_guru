@@ -23,9 +23,9 @@ class QuestionsController < ApplicationController
   end
 
   def destroy
-    question = @question.destroy
+     @question.destroy
 
-    render plain: "Question '#{question[:body]}' deleted"
+    render plain: "Question '#{@question[:body]}' deleted"
   end
 
 
