@@ -19,7 +19,7 @@ class QuestionsController < ApplicationController
   end
 
   def show
-    ender plain: @question.body
+    render plain: @question.body
   end
 
   def destroy
