@@ -1,5 +1,5 @@
   <%= form_with model: @test, local: true do |form| %>
-
+  <%= render 'shared/errors' %>
    <p>
     <%= form.label :title %><br>
     <%= form.text_field :title, id: :test_title %>
