@@ -6,11 +6,11 @@ class TestsController < ApplicationController
   def show; end
 
   def index
-    @tests = Test.all
+    @test = Test.all
   end
 
   def new
-   @tests = Test.new
+   @test = Test.new
   end
 
   def create
