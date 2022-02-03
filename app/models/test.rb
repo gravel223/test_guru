@@ -16,7 +16,7 @@ class Test < ApplicationRecord
   scope :middle, -> { complexity(2..4)}
   scope :hard, -> { complexity(5..Float::INFINITY) }
 
-  scope :by_category, -> (title) { joins(:category).where(:categories{ title: title }) }
+  scope :by_category, ->(title) { joins(:category).where(categories: { title: title }) }
 
    def self.titles_by_category(title)
      by_category(title).order(title: :desc).pluck(:title)
