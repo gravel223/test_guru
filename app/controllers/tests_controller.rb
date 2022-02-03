@@ -6,7 +6,7 @@ class TestsController < ApplicationController
   def show; end
 
   def index
-    @test = Test.all
+    @tests = Test.all
   end
 
   def new
