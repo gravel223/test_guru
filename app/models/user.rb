@@ -8,5 +8,10 @@ class User < ApplicationRecord
   def titles_by_level(level)
    tests.where(level: level)
   end
+
+   def test_passing(test)
+    test_passings.order(id: :desc).find_by(test_id: test.id)
+  end
+
 end
 
