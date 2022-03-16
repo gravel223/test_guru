@@ -1,9 +1,11 @@
-class PassedTest < ApplicationRecord
+lass TestPassing < ApplicationRecord
+  SUCCESS_PERSENT = 85
+
   belongs_to :user
   belongs_to :test
   belongs_to :current_question, class_name: 'Question', optional: true
 
-   before_validation :before_validation_set_current_question, on: %i[create update]
+  before_validation :before_validation_set_current_question, on: %i[create update]
 
   def accept!(answer_ids)
     self.correct_answers += 1 if correct_answer?(answer_ids)
@@ -12,6 +14,18 @@ class PassedTest < ApplicationRecord
 
   def completed?
     current_question.nil?
+  end
+
+  def current_question_number
+    test.questions.index(current_question) + 1
+  end
+
+  def correct_answers_percent
+    (correct_answers.to_f / test.questions.count.to_f) * 100
+  end
+
+  def successfully_completed?
+    correct_answers_percent >= SUCCESS_PERSENT
   end
 
   private
@@ -23,15 +37,17 @@ class PassedTest < ApplicationRecord
   def correct_answer?(answer_ids)
     correct_answers_count = true_answers.count
 
-    (correct_answers_count == true_answers.where(id: answer_ids).count) &&
-      correct_answers_count == answer_ids.count
+    (correct_answers_count == answer_ids.count) &&
+      correct_answers_count == true_answers.where(id: answer_ids).count
   end
 
   def true_answers
-    current_question.answers.correct
+    @true_answers ||= current_question.answers.correct
   end
 
   def next_question
-    test.questions.order(:id).where('id > ?', current_question.nil? ? 0 : current_question.id).first
+    test.questions
+        .order(:id)
+        .where('id > ?', current_question.nil? ? 0 : current_question.id).first
   end
 end
