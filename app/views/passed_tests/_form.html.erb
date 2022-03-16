@@ -1,0 +1,17 @@
+<%= form_with(model: passed_test) do |form| %>
+  <% if passed_test.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(passed_test.errors.count, "error") %> prohibited this passed_test from being saved:</h2>
+
+      <ul>
+        <% passed_test.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>
